@@ -7,6 +7,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Github, Twitter, Linkedin, Instagram, Code, Palette, Zap, Menu, X } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react"
+import Image from 'next/image';
 
 export default function Home() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -40,7 +41,7 @@ export default function Home() {
 
           {/* Mobile menu */}
           {isMenuOpen && (
-            <div className="absolute top-20 right-6 z-50 neo-brutalism bg-white p-6 flex flex-col space-y-4 md:hidden">
+            <div className="absolute top-20 right-6 z-50 neo-brutalism bg-white p-6 flex flex-col space-y-4 md:hidden neo-brutalist-white">
               {["Projects", "About", "Contact"].map((item) => (
                 <Link
                   key={item}
@@ -83,7 +84,7 @@ export default function Home() {
           <div className="flex-1">
             <div className="neo-brutalist-white p-8 relative">
               <div className="aspect-video bg-gray-100 rounded-lg">
-                <img src="/images/me2.jpg" alt="Rafi Gusti" className="h-full w-full" />
+                <Image src="/images/me2.jpg" alt="Rafi Gusti" className="h-full w-full" width={500} height={500} />
               </div>
               <div className="neo-brutalist-green px-4 py-2 absolute -bottom-4 right-8 tilted">
                 <span className="text-white font-medium">Full Stack Web Developer</span>
@@ -94,7 +95,7 @@ export default function Home() {
       </section>
 
       {/* Projects Section */}
-      <section className="max-w-7xl mx-auto px-6 py-20">
+      <section className="max-w-7xl mx-auto px-6 py-20" id="projects">
         <div className="neo-brutalist-green inline-block px-6 py-3 mb-12 tilted">
           <h2 className="text-3xl font-bold text-white">Featured Projects</h2>
         </div>
@@ -123,7 +124,7 @@ export default function Home() {
             <Card key={i} className="neo-brutalist-white p-6">
               <div className="space-y-4">
                 <div className="aspect-video bg-gray-100 rounded-lg border-2 border-black">
-                  <img src={project.image} alt={project.title} className="h-full w-full" />
+                  <Image src={project.image} alt={project.title} className="h-full w-full" width={500} height={500} />
                 </div>
                 <h3 className="text-xl font-bold">{project.title}</h3>
                 <p className="text-gray-600">{project.description}</p>
@@ -141,7 +142,7 @@ export default function Home() {
       </section>
 
       {/* About Section */}
-      <section className="max-w-7xl mx-auto px-6 py-20">
+      <section className="max-w-7xl mx-auto px-6 py-20" id="about">
         <div className="neo-brutalist-green inline-block px-6 py-3 mb-12 tilted">
           <h2 className="text-3xl font-bold text-white">About Me</h2>
         </div>
@@ -212,7 +213,7 @@ export default function Home() {
       </section>
 
       {/* Contact Section */}
-      <section className="max-w-7xl mx-auto px-6 py-20">
+      <section className="max-w-7xl mx-auto px-6 py-20" id="contact">
         <div className="neo-brutalist-green inline-block px-6 py-3 mb-12 tilted">
           <h2 className="text-3xl font-bold text-white">Get In Touch</h2>
         </div>
@@ -229,7 +230,7 @@ export default function Home() {
               </p>
             </div>
             <div className="neo-brutalist-green p-4 tilted">
-              <span className="text-white text-lg">contact@gusti.uno</span>
+              <span className="text-white text-lg">gustirafi49@gmail.com</span>
             </div>
           </div>
           <div className="neo-brutalist-white p-6">
@@ -262,13 +263,31 @@ export default function Home() {
               <span className="text-white font-bold text-xl">GUSTI.UNO</span>
             </div>
             <div className="flex gap-4 mb-6 md:mb-0">
-              {[Github, Twitter, Linkedin, Instagram].map((Icon) => (
+              {[
+                {
+                  icon: Github,
+                  url: "https://github.com/GustiRafi"
+                },
+                {
+                  icon: Twitter,
+                  url: "https://twitter.com/gustirafi5"
+                },
+                {
+                  icon: Linkedin,
+                  url: "https://www.linkedin.com/in/rafigusti/"
+                },
+                {
+                  icon: Instagram,
+                  url: "https://www.instagram.com/_gustirafi/"
+                }
+              ].map((Icon) => (
                 <Link
                   key={Icon.toString()}
-                  href="#"
+                  href={Icon.url}
+                  target="_blank"
                   className="neo-brutalist-green p-2 text-white hover:opacity-80"
                 >
-                  <Icon className="h-5 w-5" />
+                  <Icon.icon className="h-5 w-5" />
                 </Link>
               ))}
             </div>
