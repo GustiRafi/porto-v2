@@ -18,7 +18,8 @@ export default function SEO() {
       'https://www.linkedin.com/in/rafigusti/',
       'https://www.instagram.com/_gustirafi/',
       'https://www.facebook.com/gusti.rafi.71',
-      'https://www.threads.net/@_gustirafi'
+      'https://www.threads.net/@_gustirafi',
+      'https://medium.com/@gustirafi'
     ],
   };
 
