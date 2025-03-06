@@ -8,9 +8,30 @@ import { Github, Twitter, Linkedin, Instagram, Code, Palette, Zap, Menu, X } fro
 import Link from "next/link";
 import { useState } from "react"
 import Image from 'next/image';
+import { useForm, ValidationError } from '@formspree/react';
+import { useEffect } from "react";
 
 export default function Home() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [state, handleSubmit] = useForm("xrbpzbvq");
+  const [isSuccess, setIsSuccess] = useState(false);
+
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  useEffect(() => {
+    if (state.succeeded) {
+      setIsSuccess(true);
+      setFormData({ name: "", email: "", message: "" });
+    }
+  }, [state.succeeded]);
 
   return (
     <div className="min-h-screen bg-white">
@@ -234,20 +255,24 @@ export default function Home() {
             </div>
           </div>
           <div className="neo-brutalist-white p-6">
-            <form className="space-y-6">
+            <form className="space-y-6" onSubmit={(e) => {e.preventDefault(); handleSubmit(e);}}>
+              {isSuccess && <div className="bg-green-100 text-green-700 p-4 rounded-lg">Your message has been sent successfully!</div>}
               <div>
                 <label className="block text-lg font-medium mb-2">Name</label>
-                <Input className="neo-brutalist-white" />
+                <Input className="neo-brutalist-white" id="name" name="name" value={formData.name} onChange={handleInputChange} />
+                <ValidationError prefix="name" field="name" errors={state.errors} />
               </div>
               <div>
                 <label className="block text-lg font-medium mb-2">Email</label>
-                <Input className="neo-brutalist-white" type="email" />
+                <Input className="neo-brutalist-white" type="email" id="email" name="email" value={formData.email} onChange={handleInputChange} />
+                <ValidationError prefix="email" field="email" errors={state.errors} />
               </div>
               <div>
                 <label className="block text-lg font-medium mb-2">Message</label>
-                <Textarea className="neo-brutalist-white" rows={6} />
+                <Textarea className="neo-brutalist-white" rows={6} id="message" name="message" value={formData.message} onChange={handleInputChange} />
+                <ValidationError prefix="message" field="message" errors={state.errors} />
               </div>
-              <Button className="neo-brutalist-green text-white w-full">
+              <Button className="neo-brutalist-green text-white w-full" type="submit" disabled={state.submitting}>
                 Send Message
               </Button>
             </form>
